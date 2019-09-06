@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+             android:layout_width="720dp"
+             android:layout_height="wrap_content" android:id="@+id/costumrow">
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF" app:cardUseCompatPadding="true">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:text="@string/plank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:id="@+id/template"
+                    android:textAlignment="center" android:layout_weight="1" android:textSize="18sp"/>
+            <TextView
+                    android:text="@string/count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:id="@+id/count"
+                    android:layout_weight="0.1" android:textSize="18sp" android:textAlignment="center"/>
+            <TextView
+                    android:text="@string/planData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:id="@+id/plank"
+                    android:textAlignment="center" android:layout_weight="1" android:textSize="18sp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

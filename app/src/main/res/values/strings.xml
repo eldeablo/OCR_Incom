@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">OCR_Incom</string>
+    <string name="plank">Шаблон</string>
+    <string name="count">Кол-во досок</string>
+    <string name="planData">Доска</string>
+    <string name="todo">TODO</string>
+</resources>
