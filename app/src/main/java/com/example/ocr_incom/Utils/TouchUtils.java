@@ -25,7 +25,7 @@ public class TouchUtils implements View.OnClickListener {
         } else if (id == R.id.f_findTemrplate) {
             ActionIntentUtils.performSearchTemplate(MainActivity.getInstance(), MainActivity.getTemplate());
         } else if (id == R.id.f_camera) {
-            ActionIntentUtils.performCamera(MainActivity.getInstance());
+            ActionIntentUtils.performCamera(appCompatActivity);
         } else if (id == R.id.dataButton) {
             ButtonCard card = (ButtonCard) view;
             ActionIntentUtils.performDataPlank(MainActivity.getInstance(), card.getData(), MainActivity.getTemplate());

@@ -1,6 +1,8 @@
 package com.example.ocr_incom.Utils;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +30,13 @@ public class ActionIntentUtils {
 
         frame.startActivityForResult(intent, MainActivity.READ_REQUEST_CODE);
 
+    }
+
+    public static void performFileCamera(AppCompatActivity frame, Uri uriImage) {
+        Intent intent = new Intent(frame, MainActivity.class);
+        intent.putExtra("image", uriImage);
+        frame.setResult(Activity.RESULT_OK,intent);
+        frame.finish();
     }
 
     /**
@@ -63,9 +72,9 @@ public class ActionIntentUtils {
      * @param mainActivity main class
      * @param dataTemplate get data list template
      **/
-    public static void performCamera(MainActivity mainActivity) {
-        Intent intent = new Intent(mainActivity, CameraMain.class);
+    public static void performCamera(AppCompatActivity frame) {
+        Intent intent = new Intent(frame, CameraMain.class);
 
-        mainActivity.startActivity(intent);
+        frame.startActivityForResult(intent,MainActivity.READ_REQUEST_CAMERA_CODE);
     }
 }

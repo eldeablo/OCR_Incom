@@ -23,6 +23,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_CAMERA = 21;
+    public static final int READ_REQUEST_CAMERA_CODE = 10;
     public static final int READ_REQUEST_CODE = 42;
 
     @SuppressLint("StaticFieldLeak")
@@ -65,17 +66,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
 
-        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Uri uri;
-            if (resultData != null) {
-                uri = resultData.getData();
-
+        if(resultCode == Activity.RESULT_OK){
+            if(resultData != null){
+                Uri uri;
+                if(requestCode == READ_REQUEST_CODE){
+                    uri = resultData.getData();
+                }else if(requestCode == READ_REQUEST_CAMERA_CODE){
+                    uri = (Uri)resultData.getExtras().get("image");
+                }else{
+                    return;
+                }
                 ButtonCard card = new ButtonCard(this, readData);
                 card.getData().getDataCard().setImageSource(Objects.requireNonNull(uri).toString());
 
                 listDataPlank.addView(card, 0);
-
             }
+
         }
     }
 

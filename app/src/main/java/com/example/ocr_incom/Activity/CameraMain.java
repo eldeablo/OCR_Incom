@@ -14,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ocr_incom.MainActivity;
 import com.example.ocr_incom.R;
+import com.example.ocr_incom.Utils.ActionIntentUtils;
+import com.example.ocr_incom.Utils.FileUtils;
+import com.example.ocr_incom.Utils.Utils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 
@@ -22,12 +26,15 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
     private SurfaceHolder surfaceHolder;
     private SurfaceView preview;
     private Camera camera;
+    private FloatingActionButton cameraPicture;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_get_image);
 
+        cameraPicture = findViewById(R.id.cameraPicture);
+        cameraPicture.setOnClickListener(this);
         preview = findViewById(R.id.imageView);
         preview.setOnClickListener(this);
 
@@ -53,7 +60,10 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
 
     @Override
     public void onPictureTaken(byte[] bytes, Camera camera) {
+        FileUtils fileUtils = new FileUtils(this);
+        fileUtils.saveImageFile(String.valueOf(System.currentTimeMillis()), bytes);
 
+        ActionIntentUtils.performFileCamera(this, Utils.getBitmapUri(fileUtils.readImageFile(), fileUtils.getNameFile()));
     }
 
     @Override
@@ -106,25 +116,23 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.imageView: {
-                camera.autoFocus(this);
-            }
+        int id = view.getId();
+        if (id == R.id.cameraPicture) {
+            camera.takePicture(null, null, this);
+        } else if (id == R.id.imageView) {
+            camera.autoFocus(this);
         }
+
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MainActivity.REQUEST_CODE_CAMERA:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == MainActivity.REQUEST_CODE_CAMERA) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    camera = Camera.open();
-                } else {
-
-                }
-                return;
+                camera = Camera.open();
+            }
         }
     }
 
