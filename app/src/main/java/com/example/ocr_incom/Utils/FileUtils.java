@@ -1,8 +1,7 @@
 package com.example.ocr_incom.Utils;
 
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Environment;
 
 import com.example.ocr_incom.CheckPermission;
@@ -22,6 +21,8 @@ public class FileUtils {
 
     private InputStreamReader streamReader;
     private String nameFile;
+    private String file = Environment.getExternalStorageDirectory().getAbsoluteFile() + "/INCOM/Pictures";
+    private String fullNameFile = file + "/" + nameFile + ".jpg";
     private Context context;
 
     public FileUtils(Context context) {
@@ -35,9 +36,9 @@ public class FileUtils {
      * @param name      name file save
      * @param imageByte image byte
      */
-    public void saveImageFile(String name, byte[] imageByte) {
+    public void saveImageFile(String name, byte[] imageByte, Activity activity) {
         nameFile = name;
-        File _imageFile = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), "/INCOM/Pictures");
+        File _imageFile = new File(file);
 
         if (CheckPermission.isExternalStorageWritable()) {
             if (!_imageFile.exists()) {
@@ -45,7 +46,7 @@ public class FileUtils {
             }
 
             try {
-                FileOutputStream _outputFile = new FileOutputStream(_imageFile + "/" + name + ".jpg");
+                FileOutputStream _outputFile = new FileOutputStream(fullNameFile);
                 _outputFile.write(imageByte);
                 _outputFile.close();
 
@@ -54,17 +55,6 @@ public class FileUtils {
             }
         }
     }
-
-    public Bitmap readImageFile() {
-        File _imageFileRead = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), "/INCOM/Pictures" + "/" + nameFile + ".jpg");
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-
-        return BitmapFactory.decodeFile(_imageFileRead.toString());
-
-    }
-
 
     /**
      * Read file base template
@@ -94,7 +84,7 @@ public class FileUtils {
         return _getData;
     }
 
-    public String getNameFile(){
-        return nameFile;
+    public String getFullNameFile() {
+        return fullNameFile;
     }
 }

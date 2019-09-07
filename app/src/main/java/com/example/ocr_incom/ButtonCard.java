@@ -53,11 +53,11 @@ public class ButtonCard extends LinearLayout {
         addView(v);
     }
 
-    public Data getData( ) {
+    public Data getData() {
         return data;
     }
 
-    public List<DataTemplate> getDataTemplate( ) {
+    public List<DataTemplate> getDataTemplate() {
         return dataTemplate;
     }
 

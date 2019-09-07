@@ -26,7 +26,7 @@ public class DataUtils {
             "S300.10.05.250Г", "181.10.72.980Д", "181.10.71.980E", "181.10.28.130Б", "181.10.03.410A", "161.10.03.930Г", "161.10.02.860B", "161.10.02.720Б", "152.10.51.190Д", "142.10.77.070Г",
             "142.10.72.620A", "142.10.72.490Д", "222700-3724004", "2375.37.20.000", "TFFR 22011-00.00.00", "TFFR 23011-00.00.00", "1.10.530Б"};
 
-    public DataUtils( ) {
+    public DataUtils() {
 
     }
 
@@ -179,11 +179,11 @@ public class DataUtils {
     }
 
 
-    public List<DataTemplate> getTemplate( ) {
+    public List<DataTemplate> getTemplate() {
         return templateResult;
     }
 
-    public List<String> getScheme( ) {
+    public List<String> getScheme() {
         return scheme;
     }
 

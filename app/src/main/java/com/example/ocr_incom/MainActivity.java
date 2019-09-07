@@ -66,14 +66,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
 
-        if(resultCode == Activity.RESULT_OK){
-            if(resultData != null){
+        if (resultCode == Activity.RESULT_OK) {
+            if (resultData != null) {
                 Uri uri;
-                if(requestCode == READ_REQUEST_CODE){
+                if (requestCode == READ_REQUEST_CODE) {
                     uri = resultData.getData();
-                }else if(requestCode == READ_REQUEST_CAMERA_CODE){
-                    uri = (Uri)resultData.getExtras().get("image");
-                }else{
+                } else if (requestCode == READ_REQUEST_CAMERA_CODE) {
+                    uri = (Uri) resultData.getExtras().get("image");
+                } else {
                     return;
                 }
                 ButtonCard card = new ButtonCard(this, readData);

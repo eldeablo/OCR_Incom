@@ -1,5 +1,6 @@
 package com.example.ocr_incom.Activity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.hardware.Camera;
@@ -18,7 +19,9 @@ import com.example.ocr_incom.Utils.ActionIntentUtils;
 import com.example.ocr_incom.Utils.FileUtils;
 import com.example.ocr_incom.Utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callback, View.OnClickListener, Camera.PictureCallback, Camera.PreviewCallback, Camera.AutoFocusCallback {
@@ -61,9 +64,22 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
     @Override
     public void onPictureTaken(byte[] bytes, Camera camera) {
         FileUtils fileUtils = new FileUtils(this);
-        fileUtils.saveImageFile(String.valueOf(System.currentTimeMillis()), bytes);
+        fileUtils.saveImageFile(String.valueOf(System.currentTimeMillis()), bytes, this);
 
-        ActionIntentUtils.performFileCamera(this, Utils.getBitmapUri(fileUtils.readImageFile(), fileUtils.getNameFile()));
+        CropImage.activity(Utils.getUriSaveImage(new File(fileUtils.getFullNameFile())))
+                .start(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                ActionIntentUtils.performFileCamera(this, result.getUri());
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
     }
 
     @Override

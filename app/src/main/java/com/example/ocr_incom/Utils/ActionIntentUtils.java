@@ -35,7 +35,7 @@ public class ActionIntentUtils {
     public static void performFileCamera(AppCompatActivity frame, Uri uriImage) {
         Intent intent = new Intent(frame, MainActivity.class);
         intent.putExtra("image", uriImage);
-        frame.setResult(Activity.RESULT_OK,intent);
+        frame.setResult(Activity.RESULT_OK, intent);
         frame.finish();
     }
 
