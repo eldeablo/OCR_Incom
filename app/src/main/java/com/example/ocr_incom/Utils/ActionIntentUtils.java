@@ -53,6 +53,7 @@ public class ActionIntentUtils {
     public static void performSearchTemplate(MainActivity mainActivity, List<DataTemplate> dataTemplate) {
         Intent intent = new Intent(mainActivity, SearchMain.class);
         intent.putExtra("dataTemp", (Serializable) dataTemplate);
+
         mainActivity.startActivity(intent);
     }
 
@@ -64,6 +65,7 @@ public class ActionIntentUtils {
      **/
     public static void performCamera(MainActivity mainActivity) {
         Intent intent = new Intent(mainActivity, CameraMain.class);
+
         mainActivity.startActivity(intent);
     }
 }

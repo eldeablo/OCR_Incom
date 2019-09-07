@@ -35,12 +35,12 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
-
+        camera = Camera.open();
     }
 
 
     @Override
-    protected void onResume( ) {
+    protected void onResume() {
         super.onResume();
     }
 
@@ -129,9 +129,8 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
     }
 
     @Override
-    public void onBackPressed( ) {
+    public void onBackPressed() {
         finish();
-        MainActivity.setSwitch(false);
         super.onBackPressed();
     }
 }

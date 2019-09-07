@@ -1,61 +1,43 @@
 package com.example.ocr_incom.Utils;
 
 import android.content.Context;
+
 import com.example.ocr_incom.Data.DataTemplate;
 import com.example.ocr_incom.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
 public class FileUtils {
 
     private InputStreamReader streamReader;
-    private File file;
+    private File rootFile;
+    private Context context;
 
     public FileUtils(Context context) {
-        ReadFileTemplate(context);
+        this.context = context;
     }
 
 
+
     /**
-     * Save file
+     * Read file base template
      *
-     * @param dataList Save data
-     */
-    public void SaveFileTemplate(List<DataTemplate> dataList) {
-        Gson gson = new Gson();
-
-        String jsonString = gson.toJson(dataList);
-
-        try {
-            FileOutputStream outputStream = new FileOutputStream(file);
-
-            outputStream.write(jsonString.getBytes());
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Read file
-     */
-    public void ReadFileTemplate(Context context) {
+     * **/
+    public void readBaseTemplate(){
         streamReader = new InputStreamReader(context.getResources().openRawResource(R.raw.data));
 
     }
 
-
     /**
-     * Get save json list Data
-     */
-    public List<DataTemplate> getDataReadFile( ) {
-
+     * Loading file
+     * */
+    public List<DataTemplate> loadBaseTemplate(){
 
         Type _collectionType = new TypeToken<List<DataTemplate>>() {
         }.getType();
@@ -71,9 +53,5 @@ public class FileUtils {
         }
 
         return _getData;
-    }
-
-    public boolean isFile( ) {
-        return file.isFile();
     }
 }

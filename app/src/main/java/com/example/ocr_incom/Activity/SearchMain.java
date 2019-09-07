@@ -31,7 +31,6 @@ public class SearchMain extends AppCompatActivity {
     @Override
     public void onBackPressed( ) {
         finish();
-        MainActivity.setSwitch(false);
         super.onBackPressed();
     }
 }

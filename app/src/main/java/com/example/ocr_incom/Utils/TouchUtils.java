@@ -20,36 +20,15 @@ public class TouchUtils implements View.OnClickListener {
     public void onClick(View view) {
         int id = view.getId();
 
-        switch (id) {
-            case R.id.f_files: {
-                if (!MainActivity.isSwitch()) {
-                    MainActivity.setSwitch(true);
-                    ActionIntentUtils.performFileSearch(appCompatActivity);
-                    break;
-                }
-            }
-            case R.id.dataButton: {
-                if (!MainActivity.isSwitch()) {
-                    MainActivity.setSwitch(true);
-                    ButtonCard card = (ButtonCard) view;
-                    ActionIntentUtils.performDataPlank(MainActivity.getInstance(), card.getData(), MainActivity.getTemplate());
-                    break;
-                }
-            }
-            case R.id.f_findTemrplate: {
-                if (!MainActivity.isSwitch()) {
-                    MainActivity.setSwitch(true);
-                    System.out.println("Enable search");
-                    ActionIntentUtils.performSearchTemplate(MainActivity.getInstance(), MainActivity.getTemplate());
-                }
-            }
-            case R.id.f_camera: {
-                if (!MainActivity.isSwitch()) {
-                    MainActivity.setSwitch(true);
-                    System.out.println("Enable camera");
-                    ActionIntentUtils.performCamera(MainActivity.getInstance());
-                }
-            }
+        if (id == R.id.f_files) {
+            ActionIntentUtils.performFileSearch(appCompatActivity);
+        } else if (id == R.id.f_findTemrplate) {
+            ActionIntentUtils.performSearchTemplate(MainActivity.getInstance(), MainActivity.getTemplate());
+        } else if (id == R.id.f_camera) {
+            ActionIntentUtils.performCamera(MainActivity.getInstance());
+        } else if (id == R.id.dataButton) {
+            ButtonCard card = (ButtonCard) view;
+            ActionIntentUtils.performDataPlank(MainActivity.getInstance(), card.getData(), MainActivity.getTemplate());
         }
     }
 }
