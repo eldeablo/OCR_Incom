@@ -19,10 +19,12 @@ import java.util.List;
 
 public class FileUtils {
 
-    private InputStreamReader streamReader;
     private String nameFile;
     private String file = Environment.getExternalStorageDirectory().getAbsoluteFile() + "/INCOM/Pictures";
     private String fullNameFile = file + "/" + nameFile + ".jpg";
+
+    private InputStreamReader streamReader;
+
     private Context context;
 
     public FileUtils(Context context) {

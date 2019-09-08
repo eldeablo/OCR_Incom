@@ -3,23 +3,26 @@ package com.example.ocr_incom.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ocr_incom.MainActivity;
 import com.example.ocr_incom.R;
-import com.example.ocr_incom.Utils.ActionIntentUtils;
 import com.example.ocr_incom.Utils.FileUtils;
 import com.example.ocr_incom.Utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,11 +33,17 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
     private SurfaceView preview;
     private Camera camera;
     private FloatingActionButton cameraPicture;
+    private ImageView view;
+    private CropImageView cropImageView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_get_image);
+
+        view = findViewById(R.id.imageView2);
+
+        cropImageView = findViewById(R.id.cropImageView);
 
         cameraPicture = findViewById(R.id.cameraPicture);
         cameraPicture.setOnClickListener(this);
@@ -73,11 +82,13 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            CropImage.ActivityResult _result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-                ActionIntentUtils.performFileCamera(this, result.getUri());
+                view.setImageURI(_result.getUri());
+                // ActionIntentUtils.performFileCamera(this, result.getUri());
+
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
+                Exception error = _result.getError();
             }
         }
     }
