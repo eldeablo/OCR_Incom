@@ -3,8 +3,6 @@ package com.example.ocr_incom.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
@@ -26,15 +24,21 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
-public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callback, View.OnClickListener, Camera.PictureCallback, Camera.PreviewCallback, Camera.AutoFocusCallback {
+import static android.hardware.Camera.*;
+import static android.view.SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS;
+
+public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callback, View.OnClickListener, PictureCallback, PreviewCallback, AutoFocusCallback {
 
     private SurfaceHolder surfaceHolder;
     private SurfaceView preview;
     private Camera camera;
     private FloatingActionButton cameraPicture;
     private ImageView view;
-    private CropImageView cropImageView;
+    private CropImageView f;
+
+    FileUtils fileUtils = new FileUtils(this);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,7 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
 
         view = findViewById(R.id.imageView2);
 
-        cropImageView = findViewById(R.id.cropImageView);
+        f = findViewById(R.id.cropImageView);
 
         cameraPicture = findViewById(R.id.cameraPicture);
         cameraPicture.setOnClickListener(this);
@@ -52,9 +56,9 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
 
         surfaceHolder = preview.getHolder();
         surfaceHolder.addCallback(this);
-        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        surfaceHolder.setType(SURFACE_TYPE_PUSH_BUFFERS);
 
-        camera = Camera.open();
+        camera = open();
     }
 
 
@@ -72,11 +76,11 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
 
     @Override
     public void onPictureTaken(byte[] bytes, Camera camera) {
-        FileUtils fileUtils = new FileUtils(this);
         fileUtils.saveImageFile(String.valueOf(System.currentTimeMillis()), bytes, this);
 
         CropImage.activity(Utils.getUriSaveImage(new File(fileUtils.getFullNameFile())))
                 .start(this);
+
     }
 
     @Override
@@ -84,9 +88,7 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult _result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-                view.setImageURI(_result.getUri());
-                // ActionIntentUtils.performFileCamera(this, result.getUri());
-
+                fileUtils.saveImageFile(fileUtils.getNameFile(), Utils.bitmapToByteArray(Objects.requireNonNull(Utils.getBitmap(_result.getUri()))), this);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = _result.getError();
             }
@@ -158,7 +160,7 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                camera = Camera.open();
+                camera = open();
             }
         }
     }

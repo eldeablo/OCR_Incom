@@ -1,6 +1,8 @@
 package com.example.ocr_incom.Utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,12 @@ import android.widget.TextView;
 
 import com.example.ocr_incom.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Objects;
 
 public class Utils {
 
@@ -31,7 +38,25 @@ public class Utils {
     }
 
 
-    public static Uri getUriSaveImage(File file){
+    public static Uri getUriSaveImage(File file) {
         return Uri.fromFile(file);
+    }
+
+    public static Bitmap getBitmap(Uri uriCropFile) {
+        try {
+            File crop = new File(Objects.requireNonNull(uriCropFile.getPath()));
+            InputStream inputStreamCrop = new FileInputStream(crop);
+            return BitmapFactory.decodeStream(inputStreamCrop);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+        return bos.toByteArray();
     }
 }

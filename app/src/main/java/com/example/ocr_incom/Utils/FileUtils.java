@@ -21,7 +21,7 @@ public class FileUtils {
 
     private String nameFile;
     private String file = Environment.getExternalStorageDirectory().getAbsoluteFile() + "/INCOM/Pictures";
-    private String fullNameFile = file + "/" + nameFile + ".jpg";
+    private String fullNameFile;
 
     private InputStreamReader streamReader;
 
@@ -39,8 +39,18 @@ public class FileUtils {
      * @param imageByte image byte
      */
     public void saveImageFile(String name, byte[] imageByte, Activity activity) {
-        nameFile = name;
         File _imageFile = new File(file);
+
+        if (nameFile != null) {
+            if (nameFile.equals(name)) {
+                replaceFile(_imageFile);
+            } else {
+
+            }
+        } else {
+            nameFile = name;
+            fullNameFile = file + "/" + nameFile + ".jpg";
+        }
 
         if (CheckPermission.isExternalStorageWritable()) {
             if (!_imageFile.exists()) {
@@ -56,6 +66,11 @@ public class FileUtils {
                 e.printStackTrace();
             }
         }
+
+    }
+
+    private void replaceFile(File oldFile) {
+        oldFile.delete();
     }
 
     /**
@@ -88,5 +103,9 @@ public class FileUtils {
 
     public String getFullNameFile() {
         return fullNameFile;
+    }
+
+    public String getNameFile() {
+        return nameFile;
     }
 }
