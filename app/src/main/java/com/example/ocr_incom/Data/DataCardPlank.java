@@ -7,11 +7,11 @@ public class DataCardPlank implements Serializable {
     private String imageSource;
     private ArrayList<String> arrayPlank = new ArrayList<>();
 
-    public DataCardPlank( ) {
+    DataCardPlank() {
 
     }
 
-    public String getImageSource( ) {
+    public String getImageSource() {
         return imageSource;
     }
 
@@ -19,7 +19,7 @@ public class DataCardPlank implements Serializable {
         this.imageSource = imageSource;
     }
 
-    public ArrayList<String> getArrayPlank( ) {
+    public ArrayList<String> getArrayPlank() {
         return arrayPlank;
     }
 

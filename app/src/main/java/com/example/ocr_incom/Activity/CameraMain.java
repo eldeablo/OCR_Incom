@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ocr_incom.MainActivity;
 import com.example.ocr_incom.R;
+import com.example.ocr_incom.Utils.ActionIntentUtils;
 import com.example.ocr_incom.Utils.FileUtils;
 import com.example.ocr_incom.Utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,7 +27,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-import static android.hardware.Camera.*;
+import static android.hardware.Camera.AutoFocusCallback;
+import static android.hardware.Camera.PictureCallback;
+import static android.hardware.Camera.PreviewCallback;
+import static android.hardware.Camera.open;
 import static android.view.SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS;
 
 public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callback, View.OnClickListener, PictureCallback, PreviewCallback, AutoFocusCallback {
@@ -89,6 +93,7 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
             CropImage.ActivityResult _result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 fileUtils.saveImageFile(fileUtils.getNameFile(), Utils.bitmapToByteArray(Objects.requireNonNull(Utils.getBitmap(_result.getUri()))), this);
+                ActionIntentUtils.performFileCamera(this, _result.getUri());
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = _result.getError();
             }

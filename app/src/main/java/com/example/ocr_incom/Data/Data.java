@@ -6,11 +6,11 @@ public class Data implements Serializable {
     private String time;
     private DataCardPlank dataCard = new DataCardPlank();
 
-    public Data( ) {
+    public Data() {
 
     }
 
-    public String getTime( ) {
+    public String getTime() {
         return time;
     }
 
@@ -18,7 +18,7 @@ public class Data implements Serializable {
         this.time = time;
     }
 
-    public DataCardPlank getDataCard( ) {
+    public DataCardPlank getDataCard() {
         return dataCard;
     }
 

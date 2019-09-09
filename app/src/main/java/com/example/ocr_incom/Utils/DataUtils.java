@@ -115,12 +115,12 @@ public class DataUtils {
      *
      * @param dataTemplate get Data base all Template
      */
-    public void searchTemplateInScheme(List<DataTemplate> dataTemplate) {
+    public void searchAllTemplateInScheme(List<DataTemplate> dataTemplate) {
         for (int i = 0; i < imageText.size(); i++) {
-            findTemplate(dataTemplate, i);
+            findAllTemplate(dataTemplate, i);
         }
         for (int i = 0; i < imageText.size(); i++) {
-            findScheme(i);
+            findAllScheme(i);
         }
     }
 
@@ -130,7 +130,7 @@ public class DataUtils {
      * @param dataTemplates get Data base all Template
      * @param pos           get pos array text
      */
-    private void findTemplate(List<DataTemplate> dataTemplates, int pos) {
+    private void findAllTemplate(List<DataTemplate> dataTemplates, int pos) {
         for (int i = 0; i < dataTemplates.size(); i++) {
             if (imageText.get(pos).contains(dataTemplates.get(i).getPlank())) {
                 DataTemplate _dataTemplate = new DataTemplate();
@@ -143,7 +143,7 @@ public class DataUtils {
         }
     }
 
-    private void findScheme(int pos) {
+    private void findAllScheme(int pos) {
         if (isNoPlank(pos)) {
             scheme.add(imageText.get(pos));
         }
@@ -176,6 +176,21 @@ public class DataUtils {
             }
         }
         return text;
+    }
+
+    /**
+     * Get one template is all base Template
+     *
+     * @param allTemplate find Template
+     * @param plank       get text find template
+     */
+    public DataTemplate getOneTemplate(List<DataTemplate> allTemplate, String plank) {
+        for (DataTemplate oneTemplate : allTemplate) {
+            if (oneTemplate.getPlank().equals(plank)) {
+                return oneTemplate;
+            }
+        }
+        return null;
     }
 
 

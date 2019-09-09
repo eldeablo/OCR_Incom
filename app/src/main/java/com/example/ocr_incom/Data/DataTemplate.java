@@ -8,11 +8,11 @@ public class DataTemplate implements Serializable {
     private String template;
     private String count;
 
-    public DataTemplate( ) {
+    public DataTemplate() {
 
     }
 
-    public String getPlank( ) {
+    public String getPlank() {
         return plank;
     }
 
@@ -20,7 +20,7 @@ public class DataTemplate implements Serializable {
         this.plank = plank;
     }
 
-    public String getTemplate( ) {
+    public String getTemplate() {
         return template;
     }
 
@@ -28,7 +28,7 @@ public class DataTemplate implements Serializable {
         this.template = template;
     }
 
-    public String getCount( ) {
+    public String getCount() {
         return count;
     }
 

@@ -35,6 +35,7 @@ public class ActionIntentUtils {
     public static void performFileCamera(AppCompatActivity frame, Uri uriImage) {
         Intent intent = new Intent(frame, MainActivity.class);
         intent.putExtra("image", uriImage);
+
         frame.setResult(Activity.RESULT_OK, intent);
         frame.finish();
     }
@@ -69,12 +70,11 @@ public class ActionIntentUtils {
     /**
      * Intent open class search template
      *
-     * @param mainActivity main class
-     * @param dataTemplate get data list template
+     * @param frame main class
      **/
     public static void performCamera(AppCompatActivity frame) {
         Intent intent = new Intent(frame, CameraMain.class);
 
-        frame.startActivityForResult(intent,MainActivity.READ_REQUEST_CAMERA_CODE);
+        frame.startActivityForResult(intent, MainActivity.READ_REQUEST_CAMERA_CODE);
     }
 }

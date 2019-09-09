@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ocr_incom.Data.Data;
 import com.example.ocr_incom.Data.DataTemplate;
-import com.example.ocr_incom.MainActivity;
 import com.example.ocr_incom.R;
 import com.example.ocr_incom.Utils.DataUtils;
 import com.example.ocr_incom.Utils.Utils;
@@ -22,6 +21,7 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CardPlankMain extends AppCompatActivity {
 
@@ -46,7 +46,7 @@ public class CardPlankMain extends AppCompatActivity {
 
         table = findViewById(R.id.table);
 
-        getDataPlankInImage(Uri.parse(data.getDataCard().getImageSource()));
+        getDataPlankInImage(Uri.parse(Objects.requireNonNull(data).getDataCard().getImageSource()));
     }
 
 
@@ -73,19 +73,19 @@ public class CardPlankMain extends AppCompatActivity {
                 dataUtils.breakingImageText(_block.getValue());
             }
 
-            dataUtils.searchTemplateInScheme(dataTemplates);
+            dataUtils.searchAllTemplateInScheme(dataTemplates);
             add();
         }
     }
 
     @Override
-    public void onBackPressed( ) {
+    public void onBackPressed() {
         finish();
 
         super.onBackPressed();
     }
 
-    private void add( ) {
+    private void add() {
         for (DataTemplate template : dataUtils.getTemplate()) {
             Utils.addPlankTable(template.getTemplate(), template.getCount(), template.getPlank(), table, this);
         }

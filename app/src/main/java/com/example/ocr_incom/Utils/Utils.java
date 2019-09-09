@@ -37,11 +37,20 @@ public class Utils {
 
     }
 
-
+    /**
+     * Get uri is file path
+     *
+     * @param file file path
+     */
     public static Uri getUriSaveImage(File file) {
         return Uri.fromFile(file);
     }
 
+    /**
+     * Get bitmap is Uri
+     *
+     * @param uriCropFile uri get Crop image
+     */
     public static Bitmap getBitmap(Uri uriCropFile) {
         try {
             File crop = new File(Objects.requireNonNull(uriCropFile.getPath()));
@@ -54,6 +63,11 @@ public class Utils {
     }
 
 
+    /**
+     * Converter bitmap then array byte
+     *
+     * @param bitmap get bitmap
+     */
     public static byte[] bitmapToByteArray(Bitmap bitmap) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
