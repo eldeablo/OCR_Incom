@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-
         if (resultCode == Activity.RESULT_OK) {
             if (resultData != null) {
                 Uri uri;
@@ -83,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+        super.onActivityResult(requestCode, resultCode, resultData);
     }
 
     public static MainActivity getInstance() {

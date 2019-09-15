@@ -35,12 +35,8 @@ import static android.view.SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS;
 
 public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callback, View.OnClickListener, PictureCallback, PreviewCallback, AutoFocusCallback {
 
-    private SurfaceHolder surfaceHolder;
     private SurfaceView preview;
     private Camera camera;
-    private FloatingActionButton cameraPicture;
-    private ImageView view;
-    private CropImageView f;
 
     FileUtils fileUtils = new FileUtils(this);
 
@@ -49,16 +45,16 @@ public class CameraMain extends AppCompatActivity implements SurfaceHolder.Callb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_get_image);
 
-        view = findViewById(R.id.imageView2);
+        ImageView view = findViewById(R.id.imageView2);
 
-        f = findViewById(R.id.cropImageView);
+        CropImageView f = findViewById(R.id.cropImageView);
 
-        cameraPicture = findViewById(R.id.cameraPicture);
+        FloatingActionButton cameraPicture = findViewById(R.id.cameraPicture);
         cameraPicture.setOnClickListener(this);
         preview = findViewById(R.id.imageView);
         preview.setOnClickListener(this);
 
-        surfaceHolder = preview.getHolder();
+        SurfaceHolder surfaceHolder = preview.getHolder();
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SURFACE_TYPE_PUSH_BUFFERS);
 

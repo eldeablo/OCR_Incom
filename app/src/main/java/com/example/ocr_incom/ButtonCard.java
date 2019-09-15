@@ -17,10 +17,6 @@ import java.util.List;
 
 public class ButtonCard extends LinearLayout {
 
-    //Children view
-    private TextView textView;
-    private View v;
-
     //Data
     private Data data;
     private List<DataTemplate> dataTemplate;
@@ -37,13 +33,14 @@ public class ButtonCard extends LinearLayout {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
         Calendar cal = Calendar.getInstance();
 
-        v = View.inflate(context, R.layout.card_button_data_plank, null);
+        View v = View.inflate(context, R.layout.card_button_data_plank, null);
         v.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         v.setPadding(0, 40, 0, 0);
 
         setId(R.id.dataButton);
 
-        textView = v.findViewById(R.id.textView);
+        //Children view
+        TextView textView = v.findViewById(R.id.textView);
         textView.setText(dateFormat.format(cal.getTime()));
 
         setOnClickListener(new TouchUtils(null));
