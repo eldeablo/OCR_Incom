@@ -73,4 +73,23 @@ public class Utils {
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
         return bos.toByteArray();
     }
+
+    /**
+     * Replace text is char
+     *
+     * @param replaceText get text replace
+     * @param index       number char replace
+     * @param replace     replace char
+     */
+    public static String replaceStringIsChar(String replaceText, int index, char replace) {
+
+        if (index == 0 || index >= replaceText.length()) {
+            return replaceText;
+        }
+
+        char[] _replaceChar = replaceText.toCharArray();
+        _replaceChar[index] = replace;
+
+        return String.valueOf(_replaceChar);
+    }
 }
